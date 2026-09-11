@@ -63,9 +63,7 @@ namespace osu.Desktop.Deploy.Builders
 
             RunDotnetPublish(outputDir: publishTarget);
 
-            // Satori is not supported on .NET 10 on osx-x64 (https://github.com/VSadov/Satori/pull/83)
-            if (RuntimeIdentifier.EndsWith("arm64", StringComparison.OrdinalIgnoreCase))
-                AttachSatoriGC(outputDir: publishTarget);
+            AttachSatoriGC(outputDir: publishTarget);
 
             // without touching the app bundle itself, changes to file associations / icons / etc. will be cached at a macOS level and not updated.
             Program.RunCommand("touch", $"\"{stagingTarget}\" {Program.StagingPath}", false);
